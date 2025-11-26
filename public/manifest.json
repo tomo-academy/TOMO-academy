@@ -1,0 +1,27 @@
+{
+  "name": "TOMO ACADEMY - Learn Programming & Statistics",
+  "short_name": "TOMO ACADEMY",
+  "description": "Free tutorials in C Programming, Statistics, Probability, and Data Visualization",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F9F8F4",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "learning", "tutorials"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
