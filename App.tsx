@@ -12,34 +12,34 @@ import { Menu, X, BookOpen, Youtube, PlayCircle, ExternalLink, MessageSquare, Ma
 // Types
 type PageType = 'home' | 'videos' | 'community' | 'privacy' | 'terms';
 
-// --- MOCK DATA ---
+// --- ACTUAL CHANNEL DATA ---
 const VIDEOS = [
-  { id: 1, title: "AlphaQubit: The Noise Barrier", views: "125K views", duration: "14:20", thumbnail: "bg-stone-900", category: "Quantum", featured: true },
-  { id: 2, title: "Visualizing the Transformer Architecture", views: "890K views", duration: "22:15", thumbnail: "bg-[#1a1a1a]", category: "AI", featured: true },
-  { id: 3, title: "Generative AI: From Theory to Practice", views: "450K views", duration: "18:45", thumbnail: "bg-stone-800", category: "AI", featured: false },
-  { id: 4, title: "Surface Codes Explained", views: "65K views", duration: "12:10", thumbnail: "bg-stone-700", category: "Quantum", featured: false },
-  { id: 5, title: "The Hardware of Google Sycamore", views: "210K views", duration: "16:30", thumbnail: "bg-[#C5A059]", category: "Hardware", featured: false },
-  { id: 6, title: "Neural Decoding vs MWPM", views: "45K views", duration: "10:05", thumbnail: "bg-stone-600", category: "Research", featured: false },
-  { id: 7, title: "Quantum Entanglement Demystified", views: "320K views", duration: "19:35", thumbnail: "bg-stone-900", category: "Quantum", featured: false },
-  { id: 8, title: "Deep Learning: The Math Behind It", views: "580K views", duration: "25:40", thumbnail: "bg-[#1a1a1a]", category: "AI", featured: false },
-  { id: 9, title: "Quantum Supremacy Explained", views: "175K views", duration: "15:20", thumbnail: "bg-stone-800", category: "Quantum", featured: false },
-  { id: 10, title: "GPT Architecture Deep Dive", views: "720K views", duration: "28:15", thumbnail: "bg-stone-700", category: "AI", featured: false },
-  { id: 11, title: "Quantum Error Correction Basics", views: "95K views", duration: "13:50", thumbnail: "bg-[#C5A059]", category: "Quantum", featured: false },
-  { id: 12, title: "The Future of Quantum Computing", views: "410K views", duration: "21:00", thumbnail: "bg-stone-600", category: "Quantum", featured: false },
+  { id: 1, title: "Frequency Polygon in Probability and Statistics - Part 2", views: "48 views", duration: "3:13", thumbnail: "bg-stone-900", category: "Statistics", featured: true },
+  { id: 2, title: "Cumulative Frequency (Ogives) - Part 3", views: "67 views", duration: "7:34", thumbnail: "bg-[#1a1a1a]", category: "Statistics", featured: true },
+  { id: 3, title: "Why Learn C Programming - Part 3", views: "21 views", duration: "6:10", thumbnail: "bg-stone-800", category: "Programming", featured: false },
+  { id: 4, title: "Basics of C Programming - Part 2", views: "21 views", duration: "5:11", thumbnail: "bg-stone-700", category: "Programming", featured: false },
+  { id: 5, title: "Frequency Curve in Probability - Part 4", views: "47 views", duration: "5:23", thumbnail: "bg-[#C5A059]", category: "Statistics", featured: false },
+  { id: 6, title: "Less Than & More Than Ogives - Part 5", views: "17 views", duration: "4:25", thumbnail: "bg-stone-600", category: "Statistics", featured: false },
+  { id: 7, title: "Introduction to Probability and Statistics (Tamil)", views: "26 views", duration: "7:31", thumbnail: "bg-stone-900", category: "Statistics", featured: false },
+  { id: 8, title: "Intro to Computer Programming Language - Part 1", views: "12 views", duration: "1:16", thumbnail: "bg-[#1a1a1a]", category: "Programming", featured: false },
+  { id: 9, title: "Types of Charts - Part 3", views: "12 views", duration: "6:41", thumbnail: "bg-stone-800", category: "Visualization", featured: false },
+  { id: 10, title: "Data and Task Abstraction in Visualization - Part 4", views: "14 views", duration: "3:48", thumbnail: "bg-stone-700", category: "Visualization", featured: false },
+  { id: 11, title: "Dimensions and Measures - Part 5", views: "11 views", duration: "6:21", thumbnail: "bg-[#C5A059]", category: "Visualization", featured: false },
+  { id: 12, title: "Intro to Computer Programming Language - Part 2", views: "10 views", duration: "3:01", thumbnail: "bg-stone-600", category: "Programming", featured: false },
 ];
 
 const CHANNEL_STATS = [
-  { label: "Content Focus", value: "Research", icon: "🔬" },
-  { label: "Format", value: "Visual", icon: "🎨" },
-  { label: "Topics", value: "Tech", icon: "💡" },
-  { label: "Access", value: "Free", icon: "🌍" },
+  { label: "Content Focus", value: "Beginner", icon: "📚" },
+  { label: "Format", value: "Series", icon: "🎓" },
+  { label: "Languages", value: "Tamil/EN", icon: "🌍" },
+  { label: "Access", value: "Free", icon: "✨" },
 ];
 
 const TOPICS = [
-  { name: "Quantum Computing", count: 32, color: "bg-stone-900" },
-  { name: "Artificial Intelligence", count: 28, color: "bg-[#C5A059]" },
-  { name: "Machine Learning", count: 15, color: "bg-stone-700" },
-  { name: "Physics", count: 10, color: "bg-stone-600" },
+  { name: "Statistics & Probability", count: 8, color: "bg-stone-900" },
+  { name: "C Programming", count: 5, color: "bg-[#C5A059]" },
+  { name: "Data Visualization", count: 4, color: "bg-stone-700" },
+  { name: "Computer Science Basics", count: 3, color: "bg-stone-600" },
 ];
 
 const AuthorCard = ({ name, role, delay }: { name: string, role: string, delay: string }) => {
@@ -76,18 +76,18 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
             TOMO ACADEMY
           </h1>
           <p className="max-w-2xl mx-auto text-xl md:text-2xl text-stone-700 font-light leading-relaxed mb-4 italic">
-            "Demystifying the future, one paper at a time."
+            "Building foundations, one concept at a time."
           </p>
           <div className="max-w-2xl mx-auto mb-8">
             <p className="text-base text-stone-600 mb-2">
-              Educational content exploring cutting-edge research and technology
+              Beginner-friendly tutorials in Programming, Statistics & Data Visualization
             </p>
             <p className="text-sm text-stone-500">
-              Research Breakdowns • Visual Learning • Expert Analysis
+              C Programming • Probability & Statistics • Data Visualization • Bilingual (Tamil/English)
             </p>
           </div>
           <p className="max-w-xl mx-auto text-sm md:text-base text-stone-500 font-medium tracking-wide mb-12 uppercase">
-             Featuring: Google's AlphaQubit & The Future of Error Correction
+             Step-by-step series for self-paced learning in STEM
           </p>
           
           <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -109,9 +109,9 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="text-center mb-16">
                     <div className="w-12 h-1 bg-nobel-gold mx-auto mb-8"></div>
-                    <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-6">Bridging the Gap Between Science & Society</h2>
+                    <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-6">Making Programming & Statistics Accessible for Everyone</h2>
                     <p className="text-lg text-stone-600 leading-relaxed mb-8 max-w-4xl mx-auto">
-                        <strong>TOMO ACADEMY</strong> is an educational platform dedicated to breaking down complex scientific breakthroughs into understandable narratives. We explore cutting-edge research, technology, and innovation, making expert-level knowledge accessible to curious minds everywhere.
+                        <strong>TOMO ACADEMY</strong> is an emerging educational platform dedicated to foundational concepts in programming, statistics, probability, and data visualization. We make complex topics accessible for beginners through step-by-step explanations in short, focused videos that build progressively. With a bilingual approach (Tamil and English), we serve students and self-learners seeking clear introductions to technical subjects in STEM fields.
                     </p>
                 </div>
 
@@ -128,19 +128,19 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="p-6 bg-stone-50 rounded-lg">
-                        <div className="text-3xl mb-2">🎓</div>
-                        <h3 className="font-serif text-xl mb-2">Deep Dives</h3>
-                        <p className="text-sm text-stone-500">Comprehensive breakdowns of Nature & Science papers with detailed explanations.</p>
+                        <div className="text-3xl mb-2">💻</div>
+                        <h3 className="font-serif text-xl mb-2">C Programming Basics</h3>
+                        <p className="text-sm text-stone-500">Learn C programming from scratch - the foundation for modern systems programming.</p>
                     </div>
                     <div className="p-6 bg-stone-50 rounded-lg">
-                        <div className="text-3xl mb-2">🔭</div>
-                        <h3 className="font-serif text-xl mb-2">Visual Learning</h3>
-                        <p className="text-sm text-stone-500">Interactive diagrams, 3D visualizations, and animations.</p>
+                        <div className="text-3xl mb-2">📊</div>
+                        <h3 className="font-serif text-xl mb-2">Statistics & Probability</h3>
+                        <p className="text-sm text-stone-500">Master frequency distributions, histograms, polygons, and cumulative frequency curves (ogives).</p>
                     </div>
                     <div className="p-6 bg-stone-50 rounded-lg">
-                        <div className="text-3xl mb-2">🤖</div>
-                        <h3 className="font-serif text-xl mb-2">Future Tech</h3>
-                        <p className="text-sm text-stone-500">Focusing on AI, Quantum Computing, and Space exploration.</p>
+                        <div className="text-3xl mb-2">📈</div>
+                        <h3 className="font-serif text-xl mb-2">Data Visualization</h3>
+                        <p className="text-sm text-stone-500">Understand chart types, dimensions, measures, and effective data representation techniques.</p>
                     </div>
                 </div>
             </div>
@@ -150,25 +150,25 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
         <section id="deep-dive" className="py-24 bg-[#F9F8F4]">
           <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
             <div className="md:col-span-4">
-              <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">Featured Breakdown</div>
-              <h2 className="font-serif text-4xl mb-6 leading-tight text-stone-900">AlphaQubit: The Noise Barrier</h2>
+              <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">Featured Series</div>
+              <h2 className="font-serif text-4xl mb-6 leading-tight text-stone-900">Statistics & Probability Mastery</h2>
               <div className="w-16 h-1 bg-nobel-gold mb-6"></div>
               <p className="text-sm text-stone-500 italic">
-                Original Paper: "Learning high-accuracy error decoding for quantum processors" by Bausch et al. (Nature 2024)
+                Complete series on frequency distributions, graphical representations, and data analysis techniques
               </p>
             </div>
             <div className="md:col-span-8 text-lg text-stone-600 leading-relaxed space-y-6">
               <p>
-                <span className="text-5xl float-left mr-3 mt-[-8px] font-serif text-nobel-gold">B</span>uilding a large-scale quantum computer requires correcting the errors that inevitably arise in physical systems. The state of the art is the <strong>surface code</strong>, which encodes information redundantly across many physical qubits.
+                <span className="text-5xl float-left mr-3 mt-[-8px] font-serif text-nobel-gold">U</span>nderstanding data through visual representation is fundamental to statistics. Our comprehensive series covers <strong>frequency distributions</strong>, starting with histograms and progressing to more sophisticated tools like frequency polygons and ogives.
               </p>
               <p>
-                However, interpreting the noisy signals from these codes—a task called "decoding"—is a massive challenge. Complex noise effects like cross-talk and leakage confuse standard algorithms. <strong className="text-stone-900 font-medium">AlphaQubit</strong> uses machine learning to learn these complex error patterns directly from the quantum processor, achieving accuracy far beyond human-designed algorithms.
+                Learn practical techniques like adjusting for <strong className="text-stone-900 font-medium">unequal class intervals</strong> by calculating frequency density, smoothing frequency polygons into curves, and constructing cumulative frequency curves (ogives) for determining medians and quartiles. Each video builds on the previous one, making complex statistical concepts accessible through real-world examples like salary distributions and worker wages.
               </p>
             </div>
           </div>
         </section>
 
-        {/* The Science: Surface Code */}
+        {/* The Science: Frequency Distributions */}
         <section id="science" className="py-24 bg-white border-t border-stone-100">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -176,12 +176,12 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
                         <div className="inline-flex items-center gap-2 px-3 py-1 bg-stone-100 text-stone-600 text-xs font-bold tracking-widest uppercase rounded-full mb-6 border border-stone-200">
                             <BookOpen size={14}/> CONCEPT 01
                         </div>
-                        <h2 className="font-serif text-4xl md:text-5xl mb-6 text-stone-900">The Surface Code</h2>
+                        <h2 className="font-serif text-4xl md:text-5xl mb-6 text-stone-900">Frequency Polygons & Curves</h2>
                         <p className="text-lg text-stone-600 mb-6 leading-relaxed">
-                           In a surface code, "Data Qubits" hold the quantum information, while "Stabilizer Qubits" interspersed between them act as watchdogs. They measure parity checks (X and Z type) to detect errors without destroying the quantum state.
+                           A <strong>frequency polygon</strong> is created by joining the midpoints of the tops of rectangles in a histogram. This smooths the histogram into a polygon shape, making it easier to visualize trends in data distributions.
                         </p>
                         <p className="text-lg text-stone-600 mb-6 leading-relaxed">
-                            When a data qubit flips, adjacent stabilizers light up. The pattern of these lights is the "syndrome." The decoder's job is to look at the syndrome and guess which data qubit flipped.
+                            When you have unequal class intervals, you must adjust by calculating <strong>frequency density</strong> - dividing the frequency by the interval size. For example, if you have 40 frequencies in an interval of 10, the density is 4. This standardization allows for accurate curve plotting and comparison.
                         </p>
                     </div>
                     <div>
@@ -191,7 +191,7 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
             </div>
         </section>
 
-        {/* The Science: Transformer Decoder */}
+        {/* The Science: Cumulative Frequency */}
         <section className="py-24 bg-stone-900 text-stone-100 overflow-hidden relative">
             <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                 {/* Decorative background pattern */}
@@ -206,27 +206,27 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
                      </div>
                      <div className="order-1 lg:order-2">
                         <div className="inline-flex items-center gap-2 px-3 py-1 bg-stone-800 text-nobel-gold text-xs font-bold tracking-widest uppercase rounded-full mb-6 border border-stone-700">
-                           CONCEPT 02: THE INNOVATION
+                           CONCEPT 02: PRACTICAL TECHNIQUE
                         </div>
-                        <h2 className="font-serif text-4xl md:text-5xl mb-6 text-white">Neural Decoding</h2>
+                        <h2 className="font-serif text-4xl md:text-5xl mb-6 text-white">Ogives (Cumulative Frequency Curves)</h2>
                         <p className="text-lg text-stone-400 mb-6 leading-relaxed">
-                            Standard decoders assume simple, independent errors. Real hardware is messier. AlphaQubit treats decoding as a sequence prediction problem, using a <strong>Recurrent Transformer</strong> architecture.
+                            <strong>Less-than ogives</strong> start from upper class limits and cumulatively add frequencies, creating a rising curve. <strong>More-than ogives</strong> work from lower limits, subtracting frequencies for a declining pattern.
                         </p>
                         <p className="text-lg text-stone-400 leading-relaxed">
-                            It ingests the history of stabilizer measurements and uses "soft" analog information—probabilities rather than just binary 0s and 1s—to make highly informed predictions about logical errors.
+                            These curves enable practical calculations like finding the median using Q1 = N/4 on cumulative tables. For example, in a sample dataset, this might yield a median value around 115. Ogives are essential tools for quartile determination and statistical analysis.
                         </p>
                      </div>
                 </div>
             </div>
         </section>
 
-        {/* The Science: Results */}
+        {/* The Science: C Programming */}
         <section className="py-24 bg-[#F9F8F4]">
             <div className="container mx-auto px-6">
                 <div className="max-w-4xl mx-auto text-center mb-12">
-                    <h2 className="font-serif text-4xl md:text-5xl mb-6 text-stone-900">Outperforming the Standard</h2>
+                    <h2 className="font-serif text-4xl md:text-5xl mb-6 text-stone-900">Why Learn C Programming?</h2>
                     <p className="text-lg text-stone-600 leading-relaxed">
-                        AlphaQubit was tested on Google's Sycamore processor and accurate simulations. It consistently outperforms "Minimum-Weight Perfect Matching" (MWPM), the industry standard, effectively making the quantum computer appear cleaner than it actually is.
+                        C is the foundation of modern systems programming, offering speed and efficiency that underpins languages like C++, Java, and Python. Our series explains how C serves as the backbone for operating systems, embedded systems, and high-performance applications - making it an essential skill for aspiring programmers.
                     </p>
                 </div>
                 <div className="max-w-3xl mx-auto">
@@ -245,45 +245,75 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
                     </div>
                 </div>
                 <div className="md:col-span-7 flex flex-col justify-center">
-                    <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">IMPACT</div>
-                    <h2 className="font-serif text-4xl mb-6 text-stone-900">Towards Fault Tolerance</h2>
+                    <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">LEARNING APPROACH</div>
+                    <h2 className="font-serif text-4xl mb-6 text-stone-900">Hands-On, Step-by-Step Learning</h2>
                     <p className="text-lg text-stone-600 mb-6 leading-relaxed">
-                        AlphaQubit maintains its advantage even as the code distance increases (up to distance 11). It handles realistic noise including cross-talk and leakage, effects that often cripple standard decoders.
+                        TOMO ACADEMY employs a practical, problem-solving pedagogy with each series building progressively from Part 1 through Part 5 (or more). Videos start with "Hi guys, welcome to our channel" and dive into real examples like salary distributions for frequency densities or worker wages for histograms.
                     </p>
                     <p className="text-lg text-stone-600 mb-8 leading-relaxed">
-                        By learning from data directly, machine learning decoders can adapt to the unique quirks of each quantum processor, potentially reducing the hardware requirements for useful quantum computing.
+                        Our modular structure facilitates sequential mastery - you won't move to frequency curves until you understand frequency polygons. With bilingual content (Tamil and English), we enhance accessibility for regional learners while maintaining universal appeal for STEM students worldwide.
                     </p>
                     
                     <div className="p-6 bg-[#F9F8F4] border border-stone-200 rounded-lg border-l-4 border-l-nobel-gold">
                         <p className="font-serif italic text-xl text-stone-800 mb-4">
-                            "Our work illustrates the ability of machine learning to go beyond human-designed algorithms by learning from data directly, highlighting machine learning as a strong contender for decoding in quantum computers."
+                            "Our modular structure facilitates sequential mastery, making complex statistical concepts and programming fundamentals accessible through practical, real-world examples."
                         </p>
-                        <span className="text-sm font-bold text-stone-500 tracking-wider uppercase">— Bausch et al., Nature (2024)</span>
+                        <span className="text-sm font-bold text-stone-500 tracking-wider uppercase">— TOMO ACADEMY Teaching Philosophy</span>
                     </div>
                 </div>
              </div>
         </section>
 
-        {/* Authors */}
+        {/* Course Series */}
         <section id="authors" className="py-24 bg-[#F5F4F0] border-t border-stone-300">
            <div className="container mx-auto px-6">
                 <div className="text-center mb-16">
-                    <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">THE RESEARCH TEAM</div>
-                    <h2 className="font-serif text-3xl md:text-5xl mb-4 text-stone-900">Primary Authors</h2>
-                    <p className="text-stone-500 max-w-2xl mx-auto">This research is a collaboration between Google DeepMind and Google Quantum AI. <br/>Analyzed and Visualized by Tomo Academy.</p>
+                    <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">OUR COURSE SERIES</div>
+                    <h2 className="font-serif text-3xl md:text-5xl mb-4 text-stone-900">Structured Learning Paths</h2>
+                    <p className="text-stone-500 max-w-2xl mx-auto">Each series builds progressively with multiple parts, ensuring you master fundamentals before advancing to complex concepts.</p>
                 </div>
                 
-                <div className="flex flex-col md:flex-row gap-6 justify-center items-center flex-wrap">
-                    <AuthorCard name="Johannes Bausch" role="DeepMind" delay="0s" />
-                    <AuthorCard name="Andrew W. Senior" role="DeepMind" delay="0.1s" />
-                    <AuthorCard name="Francisco J. H. Heras" role="DeepMind" delay="0.2s" />
-                    <AuthorCard name="Thomas Edlich" role="DeepMind" delay="0.3s" />
-                    <AuthorCard name="Alex Davies" role="DeepMind" delay="0.4s" />
-                    <AuthorCard name="Michael Newman" role="Quantum AI" delay="0.5s" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div className="bg-white p-8 rounded-xl border border-stone-200 shadow-sm">
+                        <div className="text-4xl mb-4">📊</div>
+                        <h3 className="font-serif text-2xl mb-3 text-stone-900">Statistics Series</h3>
+                        <ul className="text-sm text-stone-600 space-y-2">
+                            <li>• Frequency Distributions</li>
+                            <li>• Histograms & Polygons</li>
+                            <li>• Frequency Curves</li>
+                            <li>• Ogives (Less-than & More-than)</li>
+                            <li>• Practical Applications</li>
+                        </ul>
+                    </div>
+                    
+                    <div className="bg-white p-8 rounded-xl border border-stone-200 shadow-sm">
+                        <div className="text-4xl mb-4">💻</div>
+                        <h3 className="font-serif text-2xl mb-3 text-stone-900">C Programming</h3>
+                        <ul className="text-sm text-stone-600 space-y-2">
+                            <li>• Introduction to Programming</li>
+                            <li>• Why Learn C?</li>
+                            <li>• C Language Basics</li>
+                            <li>• Systems Programming</li>
+                            <li>• Practical Examples</li>
+                        </ul>
+                    </div>
+                    
+                    <div className="bg-white p-8 rounded-xl border border-stone-200 shadow-sm">
+                        <div className="text-4xl mb-4">📈</div>
+                        <h3 className="font-serif text-2xl mb-3 text-stone-900">Data Visualization</h3>
+                        <ul className="text-sm text-stone-600 space-y-2">
+                            <li>• Chart Types</li>
+                            <li>• Data & Task Abstraction</li>
+                            <li>• Dimensions & Measures</li>
+                            <li>• Effective Representation</li>
+                            <li>• Best Practices</li>
+                        </ul>
+                    </div>
                 </div>
+                
                 <div className="text-center mt-12 flex justify-center">
-                    <a href="https://doi.org/10.1038/s41586-024-08148-8" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors border-b border-transparent hover:border-stone-900 pb-1">
-                      <span>Read the full paper on Nature</span>
+                    <a href="https://www.youtube.com/@TOMOACADEMY/videos" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors border-b border-transparent hover:border-stone-900 pb-1">
+                      <span>View all series on YouTube</span>
                       <ExternalLink size={14} />
                     </a>
                 </div>
@@ -304,23 +334,23 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="text-center">
                         <div className="w-16 h-16 bg-stone-900 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6">1</div>
-                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Research</h3>
+                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Start Simple</h3>
                         <p className="text-stone-600">
-                            We study papers from top journals like Nature, Science, and leading conferences, consulting with experts to ensure accuracy.
+                            We begin with foundational concepts, ensuring you have a solid base before moving to advanced topics. Part 1 always covers the basics.
                         </p>
                     </div>
                     <div className="text-center">
                         <div className="w-16 h-16 bg-nobel-gold rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6">2</div>
-                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Visualize</h3>
+                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Practice with Examples</h3>
                         <p className="text-stone-600">
-                            We create custom animations, diagrams, and interactive visualizations to make abstract concepts concrete and understandable.
+                            Real-world examples like salary distributions, worker wages, and practical datasets make abstract concepts tangible and memorable.
                         </p>
                     </div>
                     <div className="text-center">
                         <div className="w-16 h-16 bg-stone-700 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6">3</div>
-                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Teach</h3>
+                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Build Progressively</h3>
                         <p className="text-stone-600">
-                            We craft narratives that build intuition step-by-step, from fundamental concepts to cutting-edge breakthroughs.
+                            Each part builds on the previous one - from histograms to polygons to curves to ogives - ensuring mastery at every stage.
                         </p>
                     </div>
                 </div>

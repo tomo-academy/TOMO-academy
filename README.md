@@ -8,13 +8,13 @@ Welcome to the official website repository for **TOMO ACADEMY**, an educational 
 
 ## 🌟 About TOMO ACADEMY
 
-TOMO ACADEMY is an educational platform exploring cutting-edge research and technology. This website showcases research paper breakdowns with interactive visualizations and detailed explanations.
+TOMO ACADEMY is an emerging educational platform dedicated to making programming, statistics, and data visualization accessible for beginners. With a bilingual approach (Tamil and English), we serve students and self-learners seeking clear, step-by-step introductions to STEM fundamentals.
 
-### Featured Content:
-- 🔬 **Research Breakdowns** - Complex papers explained clearly
-- 🎨 **Visual Learning** - Interactive diagrams and 3D visualizations
-- 📚 **Deep Dives** - Comprehensive analysis of scientific breakthroughs
-- 💡 **Educational Resources** - Study guides and learning materials
+### Course Series:
+- 💻 **C Programming** - From basics to systems programming fundamentals
+- 📊 **Statistics & Probability** - Frequency distributions, histograms, polygons, ogives
+- 📈 **Data Visualization** - Chart types, dimensions, measures, and best practices
+- 🎓 **Beginner-Friendly** - Short, focused videos that build progressively
 
 **Visit the channel:** [youtube.com/@TOMOACADEMY](https://www.youtube.com/@TOMOACADEMY)
 
