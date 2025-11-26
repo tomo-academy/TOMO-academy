@@ -1,8 +1,10 @@
 {
-  "name": "research-visualization",
+  "name": "tomo-academy-website",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Official website for TOMO ACADEMY - Educational YouTube channel for Quantum Computing, AI, and Physics",
+  "author": "TOMO ACADEMY",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

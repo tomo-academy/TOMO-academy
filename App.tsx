@@ -20,6 +20,26 @@ const VIDEOS = [
   { id: 4, title: "Surface Codes Explained", views: "65K views", duration: "12:10", thumbnail: "bg-stone-700", category: "Quantum", featured: false },
   { id: 5, title: "The Hardware of Google Sycamore", views: "210K views", duration: "16:30", thumbnail: "bg-[#C5A059]", category: "Hardware", featured: false },
   { id: 6, title: "Neural Decoding vs MWPM", views: "45K views", duration: "10:05", thumbnail: "bg-stone-600", category: "Research", featured: false },
+  { id: 7, title: "Quantum Entanglement Demystified", views: "320K views", duration: "19:35", thumbnail: "bg-stone-900", category: "Quantum", featured: false },
+  { id: 8, title: "Deep Learning: The Math Behind It", views: "580K views", duration: "25:40", thumbnail: "bg-[#1a1a1a]", category: "AI", featured: false },
+  { id: 9, title: "Quantum Supremacy Explained", views: "175K views", duration: "15:20", thumbnail: "bg-stone-800", category: "Quantum", featured: false },
+  { id: 10, title: "GPT Architecture Deep Dive", views: "720K views", duration: "28:15", thumbnail: "bg-stone-700", category: "AI", featured: false },
+  { id: 11, title: "Quantum Error Correction Basics", views: "95K views", duration: "13:50", thumbnail: "bg-[#C5A059]", category: "Quantum", featured: false },
+  { id: 12, title: "The Future of Quantum Computing", views: "410K views", duration: "21:00", thumbnail: "bg-stone-600", category: "Quantum", featured: false },
+];
+
+const CHANNEL_STATS = [
+  { label: "Content Focus", value: "Research", icon: "🔬" },
+  { label: "Format", value: "Visual", icon: "🎨" },
+  { label: "Topics", value: "Tech", icon: "💡" },
+  { label: "Access", value: "Free", icon: "🌍" },
+];
+
+const TOPICS = [
+  { name: "Quantum Computing", count: 32, color: "bg-stone-900" },
+  { name: "Artificial Intelligence", count: 28, color: "bg-[#C5A059]" },
+  { name: "Machine Learning", count: 15, color: "bg-stone-700" },
+  { name: "Physics", count: 10, color: "bg-stone-600" },
 ];
 
 const AuthorCard = ({ name, role, delay }: { name: string, role: string, delay: string }) => {
@@ -55,9 +75,17 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
           <h1 className="font-serif text-5xl md:text-8xl lg:text-9xl font-medium leading-tight md:leading-[0.9] mb-8 text-stone-900 drop-shadow-sm">
             TOMO ACADEMY
           </h1>
-          <p className="max-w-2xl mx-auto text-xl md:text-2xl text-stone-700 font-light leading-relaxed mb-8 italic">
+          <p className="max-w-2xl mx-auto text-xl md:text-2xl text-stone-700 font-light leading-relaxed mb-4 italic">
             "Demystifying the future, one paper at a time."
           </p>
+          <div className="max-w-2xl mx-auto mb-8">
+            <p className="text-base text-stone-600 mb-2">
+              Educational content exploring cutting-edge research and technology
+            </p>
+            <p className="text-sm text-stone-500">
+              Research Breakdowns • Visual Learning • Expert Analysis
+            </p>
+          </div>
           <p className="max-w-xl mx-auto text-sm md:text-base text-stone-500 font-medium tracking-wide mb-12 uppercase">
              Featuring: Google's AlphaQubit & The Future of Error Correction
           </p>
@@ -78,27 +106,41 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
     <main>
         {/* About Tomo Academy */}
         <section id="about" className="py-20 bg-white border-b border-stone-100">
-            <div className="container mx-auto px-6 max-w-4xl text-center">
-                <div className="w-12 h-1 bg-nobel-gold mx-auto mb-8"></div>
-                <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-6">Bridging the Gap Between Science & Society</h2>
-                <p className="text-lg text-stone-600 leading-relaxed mb-8">
-                    <strong>Tomo Academy</strong> is an educational initiative dedicated to breaking down the most complex scientific breakthroughs into understandable narratives. From Quantum Computing to Generative AI, we dive deep into the technical papers that are shaping our future, making expert-level knowledge accessible to everyone.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            <div className="container mx-auto px-6 max-w-6xl">
+                <div className="text-center mb-16">
+                    <div className="w-12 h-1 bg-nobel-gold mx-auto mb-8"></div>
+                    <h2 className="font-serif text-3xl md:text-4xl text-stone-900 mb-6">Bridging the Gap Between Science & Society</h2>
+                    <p className="text-lg text-stone-600 leading-relaxed mb-8 max-w-4xl mx-auto">
+                        <strong>TOMO ACADEMY</strong> is an educational platform dedicated to breaking down complex scientific breakthroughs into understandable narratives. We explore cutting-edge research, technology, and innovation, making expert-level knowledge accessible to curious minds everywhere.
+                    </p>
+                </div>
+
+                {/* Channel Statistics */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+                    {CHANNEL_STATS.map((stat, idx) => (
+                        <div key={idx} className="text-center p-6 bg-stone-50 rounded-xl border border-stone-200">
+                            <div className="text-4xl mb-2">{stat.icon}</div>
+                            <div className="text-3xl font-serif font-bold text-stone-900 mb-1">{stat.value}</div>
+                            <div className="text-sm text-stone-500 uppercase tracking-wider">{stat.label}</div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="p-6 bg-stone-50 rounded-lg">
                         <div className="text-3xl mb-2">🎓</div>
                         <h3 className="font-serif text-xl mb-2">Deep Dives</h3>
-                        <p className="text-sm text-stone-500">Comprehensive breakdowns of Nature & Science papers.</p>
+                        <p className="text-sm text-stone-500">Comprehensive breakdowns of Nature & Science papers with detailed explanations.</p>
                     </div>
                     <div className="p-6 bg-stone-50 rounded-lg">
                         <div className="text-3xl mb-2">🔭</div>
                         <h3 className="font-serif text-xl mb-2">Visual Learning</h3>
-                        <p className="text-sm text-stone-500">Interactive diagrams and 3D visualizations.</p>
+                        <p className="text-sm text-stone-500">Interactive diagrams, 3D visualizations, and animations.</p>
                     </div>
                     <div className="p-6 bg-stone-50 rounded-lg">
                         <div className="text-3xl mb-2">🤖</div>
                         <h3 className="font-serif text-xl mb-2">Future Tech</h3>
-                        <p className="text-sm text-stone-500">Focusing on AI, Quantum, and Space exploration.</p>
+                        <p className="text-sm text-stone-500">Focusing on AI, Quantum Computing, and Space exploration.</p>
                     </div>
                 </div>
             </div>
@@ -247,6 +289,50 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
                 </div>
            </div>
         </section>
+
+        {/* Our Teaching Philosophy */}
+        <section className="py-24 bg-white border-t border-stone-200">
+            <div className="container mx-auto px-6 max-w-5xl">
+                <div className="text-center mb-16">
+                    <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">Our Approach</div>
+                    <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-6">How TOMO ACADEMY Works</h2>
+                    <p className="text-lg text-stone-600 max-w-3xl mx-auto">
+                        We follow a rigorous three-step process to transform complex research into accessible education
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="text-center">
+                        <div className="w-16 h-16 bg-stone-900 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6">1</div>
+                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Research</h3>
+                        <p className="text-stone-600">
+                            We study papers from top journals like Nature, Science, and leading conferences, consulting with experts to ensure accuracy.
+                        </p>
+                    </div>
+                    <div className="text-center">
+                        <div className="w-16 h-16 bg-nobel-gold rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6">2</div>
+                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Visualize</h3>
+                        <p className="text-stone-600">
+                            We create custom animations, diagrams, and interactive visualizations to make abstract concepts concrete and understandable.
+                        </p>
+                    </div>
+                    <div className="text-center">
+                        <div className="w-16 h-16 bg-stone-700 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6">3</div>
+                        <h3 className="font-serif text-2xl mb-4 text-stone-900">Teach</h3>
+                        <p className="text-stone-600">
+                            We craft narratives that build intuition step-by-step, from fundamental concepts to cutting-edge breakthroughs.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="mt-16 text-center">
+                    <a href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-stone-900 text-white rounded-full font-medium shadow-lg hover:bg-stone-800 transition-all">
+                        <Youtube size={20} />
+                        Watch Our Videos
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
   </>
 );
@@ -257,9 +343,19 @@ const VideosPage = () => (
             <div className="text-center mb-16">
                 <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">Video Library</div>
                 <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-6">Latest Research Breakdowns</h2>
-                <p className="max-w-2xl mx-auto text-lg text-stone-600">
+                <p className="max-w-2xl mx-auto text-lg text-stone-600 mb-8">
                     Watch our latest episodes demystifying complex topics in AI, Quantum Computing, and Physics.
                 </p>
+                
+                {/* Topic Tags */}
+                <div className="flex flex-wrap justify-center gap-3 mb-12">
+                    {TOPICS.map((topic, idx) => (
+                        <div key={idx} className={`px-4 py-2 ${topic.color} text-white rounded-full text-sm font-medium flex items-center gap-2`}>
+                            <span>{topic.name}</span>
+                            <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs">{topic.count}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -342,6 +438,31 @@ const CommunityPage = () => (
                         Become a Patron
                     </button>
                  </div>
+             </div>
+
+             {/* Educational Resources */}
+             <div className="mt-16">
+                <h3 className="font-serif text-3xl text-stone-900 mb-8 text-center">Free Educational Resources</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="bg-white p-6 rounded-xl border border-stone-200">
+                        <div className="text-3xl mb-4">📚</div>
+                        <h4 className="font-serif text-xl mb-3 text-stone-900">Paper Library</h4>
+                        <p className="text-sm text-stone-600 mb-4">Curated collection of groundbreaking research papers with our summaries and notes.</p>
+                        <button className="text-stone-900 font-medium text-sm hover:text-nobel-gold transition-colors">Browse Papers →</button>
+                    </div>
+                    <div className="bg-white p-6 rounded-xl border border-stone-200">
+                        <div className="text-3xl mb-4">📝</div>
+                        <h4 className="font-serif text-xl mb-3 text-stone-900">Study Guides</h4>
+                        <p className="text-sm text-stone-600 mb-4">Downloadable study guides and notes for every video we produce.</p>
+                        <button className="text-stone-900 font-medium text-sm hover:text-nobel-gold transition-colors">Download Guides →</button>
+                    </div>
+                    <div className="bg-white p-6 rounded-xl border border-stone-200">
+                        <div className="text-3xl mb-4">💻</div>
+                        <h4 className="font-serif text-xl mb-3 text-stone-900">Code Examples</h4>
+                        <p className="text-sm text-stone-600 mb-4">Python notebooks and implementations of algorithms we discuss.</p>
+                        <button className="text-stone-900 font-medium text-sm hover:text-nobel-gold transition-colors">View on GitHub →</button>
+                    </div>
+                </div>
              </div>
         </div>
     </div>
