@@ -247,6 +247,7 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
                 </div>
            </div>
         </section>
+    </main>
   </>
 );
 
@@ -496,4 +497,40 @@ export default function App() {
                         Tomo Academy is a digital education platform committed to democratizing access to cutting-edge scientific knowledge. We visualize the invisible.
                     </p>
                     <div className="flex gap-4">
-                        <a href="https://
+                        <a href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="p-2 bg-stone-800 rounded-full hover:bg-[#FF0000] hover:text-white transition-colors">
+                            <Youtube size={20} />
+                        </a>
+                        <button onClick={() => navigateTo('community')} className="p-2 bg-stone-800 rounded-full hover:bg-[#5865F2] hover:text-white transition-colors">
+                            <MessageSquare size={20} />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-12 text-sm">
+                    <div>
+                        <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Platform</h4>
+                        <ul className="space-y-3">
+                            <li><button onClick={() => navigateTo('home')} className="hover:text-nobel-gold transition-colors text-left">Home</button></li>
+                            <li><button onClick={() => navigateTo('videos')} className="hover:text-nobel-gold transition-colors text-left">Videos</button></li>
+                            <li><button onClick={() => navigateTo('community')} className="hover:text-nobel-gold transition-colors text-left">Community</button></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Legal</h4>
+                        <ul className="space-y-3">
+                            <li><button onClick={() => navigateTo('privacy')} className="hover:text-nobel-gold transition-colors text-left">Privacy Policy</button></li>
+                            <li><button onClick={() => navigateTo('terms')} className="hover:text-nobel-gold transition-colors text-left">Terms of Service</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div className="border-t border-stone-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone-600">
+                <div>© 2024 Tomo Academy. All rights reserved.</div>
+                <div>Based on research published in Nature (2024). Visualization by AI.</div>
+            </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
