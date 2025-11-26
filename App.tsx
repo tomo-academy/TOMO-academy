@@ -659,12 +659,12 @@ export default function App() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#F9F8F4]/95 backdrop-blur-md shadow-sm py-4 border-b border-stone-200' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigateTo('home')}>
-            <div className="w-10 h-10 bg-stone-900 rounded-lg flex items-center justify-center text-white font-serif font-bold text-2xl shadow-sm">T</div>
+            <img src="/logo.png" alt="TOMO ACADEMY" className="w-10 h-10 rounded-lg shadow-sm object-cover" />
             <div className="flex flex-col">
               <span className={`font-serif font-bold text-lg tracking-wide leading-none transition-opacity ${scrolled ? 'text-stone-900' : 'text-stone-900 md:text-stone-800'}`}>
                 TOMO ACADEMY
               </span>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold">Research & Education</span>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold">Learn • Grow • Excel</span>
             </div>
           </div>
           
@@ -713,7 +713,7 @@ export default function App() {
             <div className="flex flex-col md:flex-row justify-between items-start gap-12">
                 <div className="max-w-md">
                     <div className="flex items-center gap-3 mb-6">
-                         <div className="w-8 h-8 bg-white rounded flex items-center justify-center text-stone-900 font-serif font-bold text-xl">T</div>
+                         <img src="/logo.png" alt="TOMO ACADEMY" className="w-10 h-10 rounded-lg shadow-sm object-cover" />
                          <span className="text-white font-serif font-bold text-2xl">TOMO ACADEMY</span>
                     </div>
                     <p className="text-sm leading-relaxed mb-6">
