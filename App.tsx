@@ -1,18 +1,14 @@
-
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-
 import React, { useState, useEffect } from 'react';
 import { HeroScene, QuantumComputerScene } from './components/QuantumScene';
 import { SurfaceCodeDiagram, TransformerDecoderDiagram, PerformanceMetricDiagram } from './components/Diagrams';
 import { Menu, X, BookOpen, Youtube, PlayCircle, ExternalLink, MessageSquare, Mail } from 'lucide-react';
 import { fetchChannelStats, fetchChannelVideos, formatNumber, getTopicsDistribution, type VideoData, type ChannelStats } from './services/youtube';
-
 // Types
 type PageType = 'home' | 'videos' | 'community' | 'privacy' | 'terms';
-
 // --- FALLBACK DATA (used if API fails) ---
 const FALLBACK_VIDEOS = [
   { id: '1', title: "Frequency Polygon in Probability and Statistics - Part 2", views: "48 views", duration: "3:13", thumbnail: "bg-stone-900", category: "Statistics", featured: true, publishedAt: '', description: '', thumbnailUrl: '' },
@@ -28,21 +24,18 @@ const FALLBACK_VIDEOS = [
   { id: '11', title: "Dimensions and Measures - Part 5", views: "11 views", duration: "6:21", thumbnail: "bg-[#C5A059]", category: "Visualization", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
   { id: '12', title: "Intro to Computer Programming Language - Part 2", views: "10 views", duration: "3:01", thumbnail: "bg-stone-600", category: "Programming", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
 ];
-
 const FALLBACK_CHANNEL_STATS = [
   { label: "Content Focus", value: "Beginner", icon: "📚" },
   { label: "Format", value: "Series", icon: "🎓" },
-  { label: "Languages", value: "Tamil/EN", icon: "🌍" },
+  { label: "Languages", value: "Tamil/EN", icon: "/language-cropped.svg" },
   { label: "Access", value: "Free", icon: "✨" },
 ];
-
 const FALLBACK_TOPICS = [
   { name: "Statistics & Probability", count: 8, color: "bg-stone-900" },
   { name: "C Programming", count: 5, color: "bg-[#C5A059]" },
   { name: "Data Visualization", count: 4, color: "bg-stone-700" },
   { name: "Computer Science Basics", count: 3, color: "bg-stone-600" },
 ];
-
 const AuthorCard = ({ name, role, delay }: { name: string, role: string, delay: string }) => {
   return (
     <div className="flex flex-col group animate-fade-in-up items-center p-6 bg-white rounded-xl border border-stone-200 shadow-sm hover:shadow-md transition-all duration-300 w-full max-w-[200px] hover:border-nobel-gold/50" style={{ animationDelay: delay }}>
@@ -52,15 +45,13 @@ const AuthorCard = ({ name, role, delay }: { name: string, role: string, delay: 
     </div>
   );
 };
-
 // --- PAGES ---
-
-const HomePage = ({ 
-  scrollToSection, 
+const HomePage = ({
+  scrollToSection,
   channelStats,
   displayChannelStats,
-  topics 
-}: { 
+  topics
+}: {
   scrollToSection: (id: string) => void;
   channelStats: ChannelStats | null;
   displayChannelStats: any[];
@@ -70,10 +61,9 @@ const HomePage = ({
     {/* Hero Section */}
     <header className="relative h-screen flex items-center justify-center overflow-hidden">
         <HeroScene />
-        
+       
         {/* Gradient Overlay */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(249,248,244,0.85)_0%,rgba(249,248,244,0.5)_50%,rgba(249,248,244,0.2)_100%)]" />
-
         <div className="relative z-10 container mx-auto px-6 text-center mt-12">
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 border border-stone-200 bg-white/50 backdrop-blur-sm rounded-full shadow-sm">
             <span className="flex h-2 w-2 relative">
@@ -82,7 +72,6 @@ const HomePage = ({
             </span>
             <span className="text-xs font-bold tracking-widest text-stone-600 uppercase">New Breakdown Available</span>
           </div>
-
           <h1 className="font-serif text-5xl md:text-8xl lg:text-9xl font-medium leading-tight md:leading-[0.9] mb-8 text-stone-900 drop-shadow-sm">
             TOMO ACADEMY
           </h1>
@@ -100,7 +89,7 @@ const HomePage = ({
           <p className="max-w-xl mx-auto text-sm md:text-base text-stone-500 font-medium tracking-wide mb-12 uppercase">
              Step-by-step series for self-paced learning in STEM
           </p>
-          
+         
           <div className="flex flex-col md:flex-row justify-center gap-4">
              <button onClick={() => scrollToSection('deep-dive')} className="px-8 py-4 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl font-medium tracking-wide flex items-center justify-center gap-2 cursor-pointer">
                 <BookOpen size={18} />
@@ -113,7 +102,6 @@ const HomePage = ({
           </div>
         </div>
     </header>
-
     <main>
         {/* About Tomo Academy */}
         <section id="about" className="py-20 bg-white border-b border-stone-100">
@@ -125,38 +113,39 @@ const HomePage = ({
                         <strong>TOMO ACADEMY</strong> is an emerging educational platform dedicated to foundational concepts in programming, statistics, probability, and data visualization. We make complex topics accessible for beginners through step-by-step explanations in short, focused videos that build progressively. With a bilingual approach (Tamil and English), we serve students and self-learners seeking clear introductions to technical subjects in STEM fields.
                     </p>
                 </div>
-
                 {/* Channel Statistics */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
                     {displayChannelStats.map((stat, idx) => (
                         <div key={idx} className="text-center p-6 bg-stone-50 rounded-xl border border-stone-200">
-                            <div className="text-4xl mb-2">{stat.icon}</div>
+                            {typeof stat.icon === 'string' && stat.icon.startsWith('/') ? (
+                                <img src={stat.icon} alt={`${stat.label} icon`} className="w-12 h-12 mx-auto mb-2" />
+                            ) : (
+                                <div className="text-4xl mb-2">{stat.icon}</div>
+                            )}
                             <div className="text-3xl font-serif font-bold text-stone-900 mb-1">{stat.value}</div>
                             <div className="text-sm text-stone-500 uppercase tracking-wider">{stat.label}</div>
                         </div>
                     ))}
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="p-6 bg-stone-50 rounded-lg">
-                        <div className="text-3xl mb-2">💻</div>
+                        <img src="/c-cropped.svg" alt="C Programming icon" className="w-12 h-12 mx-auto mb-2" />
                         <h3 className="font-serif text-xl mb-2">C Programming Basics</h3>
                         <p className="text-sm text-stone-500">Learn C programming from scratch - the foundation for modern systems programming.</p>
                     </div>
                     <div className="p-6 bg-stone-50 rounded-lg">
-                        <div className="text-3xl mb-2">📊</div>
+                        <img src="/statistics-cropped.svg" alt="Statistics icon" className="w-12 h-12 mx-auto mb-2" />
                         <h3 className="font-serif text-xl mb-2">Statistics & Probability</h3>
                         <p className="text-sm text-stone-500">Master frequency distributions, histograms, polygons, and cumulative frequency curves (ogives).</p>
                     </div>
                     <div className="p-6 bg-stone-50 rounded-lg">
-                        <div className="text-3xl mb-2">📈</div>
+                        <img src="/data-visualization-cropped.svg" alt="Data Visualization icon" className="w-12 h-12 mx-auto mb-2" />
                         <h3 className="font-serif text-xl mb-2">Data Visualization</h3>
                         <p className="text-sm text-stone-500">Understand chart types, dimensions, measures, and effective data representation techniques.</p>
                     </div>
                 </div>
             </div>
         </section>
-
         {/* Introduction to the Deep Dive */}
         <section id="deep-dive" className="py-24 bg-[#F9F8F4]">
           <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
@@ -178,7 +167,6 @@ const HomePage = ({
             </div>
           </div>
         </section>
-
         {/* The Science: Frequency Distributions */}
         <section id="science" className="py-24 bg-white border-t border-stone-100">
             <div className="container mx-auto px-6">
@@ -201,7 +189,6 @@ const HomePage = ({
                 </div>
             </div>
         </section>
-
         {/* The Science: Cumulative Frequency */}
         <section className="py-24 bg-stone-900 text-stone-100 overflow-hidden relative">
             <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
@@ -209,7 +196,6 @@ const HomePage = ({
                 <div className="w-96 h-96 rounded-full bg-stone-600 blur-[100px] absolute top-[-100px] left-[-100px]"></div>
                 <div className="w-96 h-96 rounded-full bg-nobel-gold blur-[100px] absolute bottom-[-100px] right-[-100px]"></div>
             </div>
-
             <div className="container mx-auto px-6 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                      <div className="order-2 lg:order-1">
@@ -230,7 +216,6 @@ const HomePage = ({
                 </div>
             </div>
         </section>
-
         {/* The Science: C Programming */}
         <section className="py-24 bg-[#F9F8F4]">
             <div className="container mx-auto px-6">
@@ -245,7 +230,6 @@ const HomePage = ({
                 </div>
             </div>
         </section>
-
         {/* Impact */}
         <section id="impact" className="py-24 bg-white border-t border-stone-200">
              <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12">
@@ -264,7 +248,7 @@ const HomePage = ({
                     <p className="text-lg text-stone-600 mb-8 leading-relaxed">
                         Our modular structure facilitates sequential mastery - you won't move to frequency curves until you understand frequency polygons. With bilingual content (Tamil and English), we enhance accessibility for regional learners while maintaining universal appeal for STEM students worldwide.
                     </p>
-                    
+                   
                     <div className="p-6 bg-[#F9F8F4] border border-stone-200 rounded-lg border-l-4 border-l-nobel-gold">
                         <p className="font-serif italic text-xl text-stone-800 mb-4">
                             "Our modular structure facilitates sequential mastery, making complex statistical concepts and programming fundamentals accessible through practical, real-world examples."
@@ -274,7 +258,6 @@ const HomePage = ({
                 </div>
              </div>
         </section>
-
         {/* Course Series */}
         <section id="authors" className="py-24 bg-[#F5F4F0] border-t border-stone-300">
            <div className="container mx-auto px-6">
@@ -283,10 +266,10 @@ const HomePage = ({
                     <h2 className="font-serif text-3xl md:text-5xl mb-4 text-stone-900">Structured Learning Paths</h2>
                     <p className="text-stone-500 max-w-2xl mx-auto">Each series builds progressively with multiple parts, ensuring you master fundamentals before advancing to complex concepts.</p>
                 </div>
-                
+               
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     <div className="bg-white p-8 rounded-xl border border-stone-200 shadow-sm">
-                        <div className="text-4xl mb-4">📊</div>
+                        <img src="/statistics-cropped.svg" alt="Statistics Series icon" className="w-12 h-12 mx-auto mb-4" />
                         <h3 className="font-serif text-2xl mb-3 text-stone-900">Statistics Series</h3>
                         <ul className="text-sm text-stone-600 space-y-2">
                             <li>• Frequency Distributions</li>
@@ -296,9 +279,9 @@ const HomePage = ({
                             <li>• Practical Applications</li>
                         </ul>
                     </div>
-                    
+                   
                     <div className="bg-white p-8 rounded-xl border border-stone-200 shadow-sm">
-                        <div className="text-4xl mb-4">💻</div>
+                        <img src="/c-cropped.svg" alt="C Programming icon" className="w-12 h-12 mx-auto mb-4" />
                         <h3 className="font-serif text-2xl mb-3 text-stone-900">C Programming</h3>
                         <ul className="text-sm text-stone-600 space-y-2">
                             <li>• Introduction to Programming</li>
@@ -308,9 +291,9 @@ const HomePage = ({
                             <li>• Practical Examples</li>
                         </ul>
                     </div>
-                    
+                   
                     <div className="bg-white p-8 rounded-xl border border-stone-200 shadow-sm">
-                        <div className="text-4xl mb-4">📈</div>
+                        <img src="/data-visualization-cropped.svg" alt="Data Visualization icon" className="w-12 h-12 mx-auto mb-4" />
                         <h3 className="font-serif text-2xl mb-3 text-stone-900">Data Visualization</h3>
                         <ul className="text-sm text-stone-600 space-y-2">
                             <li>• Chart Types</li>
@@ -321,7 +304,7 @@ const HomePage = ({
                         </ul>
                     </div>
                 </div>
-                
+               
                 <div className="text-center mt-12 flex justify-center">
                     <a href="https://www.youtube.com/@TOMOACADEMY/videos" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors border-b border-transparent hover:border-stone-900 pb-1">
                       <span>View all series on YouTube</span>
@@ -330,7 +313,6 @@ const HomePage = ({
                 </div>
            </div>
         </section>
-
         {/* Our Teaching Philosophy */}
         <section className="py-24 bg-white border-t border-stone-200">
             <div className="container mx-auto px-6 max-w-5xl">
@@ -341,7 +323,6 @@ const HomePage = ({
                         We follow a rigorous three-step process to transform complex research into accessible education
                     </p>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="text-center">
                         <div className="w-16 h-16 bg-stone-900 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6">1</div>
@@ -365,7 +346,6 @@ const HomePage = ({
                         </p>
                     </div>
                 </div>
-
                 <div className="mt-16 text-center">
                     <a href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-stone-900 text-white rounded-full font-medium shadow-lg hover:bg-stone-800 transition-all">
                         <Youtube size={20} />
@@ -377,7 +357,6 @@ const HomePage = ({
     </main>
   </>
 );
-
 const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: any[]; loading: boolean }) => (
     <div className="min-h-screen pt-32 pb-20 bg-[#F9F8F4]">
         <div className="container mx-auto px-6">
@@ -387,7 +366,7 @@ const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: 
                 <p className="max-w-2xl mx-auto text-lg text-stone-600 mb-8">
                     Watch our step-by-step tutorials covering C Programming, Statistics, Probability, and Data Visualization fundamentals.
                 </p>
-                
+               
                 {/* Topic Tags */}
                 <div className="flex flex-wrap justify-center gap-3 mb-12">
                     {topics.map((topic, idx) => (
@@ -398,7 +377,6 @@ const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: 
                     ))}
                 </div>
             </div>
-
             {loading ? (
                 <div className="text-center py-20">
                     <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-stone-900"></div>
@@ -439,7 +417,6 @@ const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: 
                     ))}
                 </div>
             )}
-
             <div className="mt-20 text-center">
                  <a href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF0000] text-white rounded-full font-medium shadow-md hover:bg-red-700 transition-colors">
                     <Youtube size={20} />
@@ -449,7 +426,6 @@ const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: 
         </div>
     </div>
 );
-
 const CommunityPage = () => (
     <div className="min-h-screen pt-32 pb-20 bg-white">
         <div className="container mx-auto px-6 max-w-5xl">
@@ -459,7 +435,6 @@ const CommunityPage = () => (
                     Tomo Academy isn't just a channel; it's a community of curious minds. Connect with researchers, students, and enthusiasts.
                  </p>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
                  <div className="bg-[#F9F8F4] p-10 rounded-2xl border border-stone-200 flex flex-col items-start">
                      <div className="p-4 bg-stone-900 text-white rounded-lg mb-6"><MessageSquare size={32} /></div>
@@ -471,7 +446,7 @@ const CommunityPage = () => (
                         Join Server
                      </button>
                  </div>
-                 
+                
                  <div className="bg-[#F9F8F4] p-10 rounded-2xl border border-stone-200 flex flex-col items-start">
                      <div className="p-4 bg-nobel-gold text-white rounded-lg mb-6"><Mail size={32} /></div>
                      <h3 className="font-serif text-3xl text-stone-900 mb-4">The Abstract</h3>
@@ -486,7 +461,7 @@ const CommunityPage = () => (
                      </div>
                  </div>
             </div>
-            
+           
              <div className="bg-stone-900 rounded-2xl p-12 text-center text-white relative overflow-hidden">
                  <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                  <div className="relative z-10">
@@ -499,7 +474,6 @@ const CommunityPage = () => (
                     </button>
                  </div>
              </div>
-
              {/* Educational Resources */}
              <div className="mt-16">
                 <h3 className="font-serif text-3xl text-stone-900 mb-8 text-center">Free Educational Resources</h3>
@@ -527,7 +501,6 @@ const CommunityPage = () => (
         </div>
     </div>
 );
-
 const LegalPage = ({ docType }: { docType: 'privacy' | 'terms' }) => (
     <div className="min-h-screen pt-32 pb-20 bg-white">
         <div className="container mx-auto px-6 max-w-3xl">
@@ -536,7 +509,7 @@ const LegalPage = ({ docType }: { docType: 'privacy' | 'terms' }) => (
             </h1>
             <div className="prose prose-stone prose-lg text-stone-600">
                 <p>Last updated: October 24, 2024</p>
-                
+               
                 {docType === 'privacy' ? (
                     <>
                         <p>At Tomo Academy, accessible from tomo.academy, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Tomo Academy and how we use it.</p>
@@ -564,10 +537,7 @@ const LegalPage = ({ docType }: { docType: 'privacy' | 'terms' }) => (
         </div>
     </div>
 );
-
-
 // --- MAIN APP COMPONENT ---
-
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -576,7 +546,6 @@ export default function App() {
   const [channelStats, setChannelStats] = useState<ChannelStats | null>(null);
   const [topics, setTopics] = useState(FALLBACK_TOPICS);
   const [loading, setLoading] = useState(true);
-
   // Fetch YouTube data on mount
   useEffect(() => {
     async function loadYouTubeData() {
@@ -587,11 +556,9 @@ export default function App() {
           fetchChannelStats(),
           fetchChannelVideos(12)
         ]);
-
         if (stats) {
           setChannelStats(stats);
         }
-
         if (vids && vids.length > 0) {
           setVideos(vids);
           setTopics(getTopicsDistribution(vids));
@@ -603,30 +570,25 @@ export default function App() {
         setLoading(false);
       }
     }
-
     loadYouTubeData();
   }, []);
-
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   // Create dynamic channel stats for display
   const displayChannelStats = channelStats ? [
-    { label: "Subscribers", value: formatNumber(channelStats.subscriberCount) + '+', icon: "👥" },
-    { label: "Total Views", value: formatNumber(channelStats.viewCount), icon: "👁️" },
-    { label: "Videos", value: channelStats.videoCount, icon: "🎬" },
-    { label: "Languages", value: "Tamil/EN", icon: "🌍" },
+    { label: "Subscribers", value: formatNumber(channelStats.subscriberCount) + '+', icon: "/subscribers-cropped.svg" },
+    { label: "Total Views", value: formatNumber(channelStats.viewCount), icon: "/view-cropped.svg" },
+    { label: "Videos", value: channelStats.videoCount, icon: "/video-cropped.svg" },
+    { label: "Languages", value: "Tamil/EN", icon: "/language-cropped.svg" },
   ] : FALLBACK_CHANNEL_STATS;
-
   const navigateTo = (page: PageType) => {
       setCurrentPage(page);
       setMenuOpen(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
   const scrollToSection = (id: string) => {
       if (currentPage !== 'home') {
           setCurrentPage('home');
@@ -651,10 +613,9 @@ export default function App() {
       }
       setMenuOpen(false);
   };
-
   return (
     <div className="min-h-screen bg-[#F9F8F4] text-stone-800 selection:bg-nobel-gold selection:text-white flex flex-col">
-      
+     
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#F9F8F4]/95 backdrop-blur-md shadow-sm py-4 border-b border-stone-200' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
@@ -667,29 +628,27 @@ export default function App() {
               <span className="text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold">Learn • Grow • Excel</span>
             </div>
           </div>
-          
+         
           <div className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-stone-600">
             <button onClick={() => navigateTo('home')} className={`hover:text-nobel-gold transition-colors uppercase ${currentPage === 'home' ? 'text-stone-900 font-bold' : ''}`}>Home</button>
             <button onClick={() => navigateTo('videos')} className={`hover:text-nobel-gold transition-colors uppercase ${currentPage === 'videos' ? 'text-stone-900 font-bold' : ''}`}>Videos</button>
             <button onClick={() => navigateTo('community')} className={`hover:text-nobel-gold transition-colors uppercase ${currentPage === 'community' ? 'text-stone-900 font-bold' : ''}`}>Community</button>
-            
-            <a 
-              href="https://www.youtube.com/@TOMOACADEMY" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+           
+            <a
+              href="https://www.youtube.com/@TOMOACADEMY"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-5 py-2 bg-[#FF0000] text-white rounded-full hover:bg-red-700 transition-colors shadow-sm cursor-pointer flex items-center gap-2"
             >
               <Youtube size={16} fill="currentColor" />
               Subscribe
             </a>
           </div>
-
           <button className="md:hidden text-stone-900 p-2" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? <X /> : <Menu />}
           </button>
         </div>
       </nav>
-
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="fixed inset-0 z-40 bg-[#F9F8F4] flex flex-col items-center justify-center gap-8 text-xl font-serif animate-fade-in">
@@ -699,7 +658,6 @@ export default function App() {
             <a href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="hover:text-nobel-gold transition-colors uppercase">YouTube Channel</a>
         </div>
       )}
-
       {/* Page Content */}
       <div className="flex-grow">
           {currentPage === 'home' && <HomePage scrollToSection={scrollToSection} channelStats={channelStats} displayChannelStats={displayChannelStats} topics={topics} />}
@@ -707,7 +665,6 @@ export default function App() {
           {currentPage === 'community' && <CommunityPage />}
           {(currentPage === 'privacy' || currentPage === 'terms') && <LegalPage docType={currentPage} />}
       </div>
-
       <footer className="bg-stone-900 text-stone-400 py-20">
         <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row justify-between items-start gap-12">
@@ -728,7 +685,6 @@ export default function App() {
                         </button>
                     </div>
                 </div>
-
                 <div className="grid grid-cols-2 gap-12 text-sm">
                     <div>
                         <h4 className="text-white font-bold mb-4 uppercase tracking-wider text-xs">Platform</h4>
@@ -747,7 +703,7 @@ export default function App() {
                     </div>
                 </div>
             </div>
-            
+           
             <div className="border-t border-stone-800 mt-16 pt-8">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone-600">
                     <div>© 2025 TOMO ACADEMY. All rights reserved.</div>
