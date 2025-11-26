@@ -748,9 +748,19 @@ export default function App() {
                 </div>
             </div>
             
-            <div className="border-t border-stone-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone-600">
-                <div>© 2024 Tomo Academy. All rights reserved.</div>
-                <div>Based on research published in Nature (2024). Visualization by AI.</div>
+            <div className="border-t border-stone-800 mt-16 pt-8">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone-600">
+                    <div>© 2025 TOMO ACADEMY. All rights reserved.</div>
+                    <div className="flex items-center gap-2">
+                        <span>Designed with</span>
+                        <span className="text-red-500 animate-pulse">❤</span>
+                        <span>by</span>
+                        <a href="#" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-nobel-gold transition-colors font-semibold">
+                            <img src="/AJ.svg" alt="AJ STUDIOZ" className="h-4 w-auto" />
+                            <span>AJ STUDIOZ</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
       </footer>
