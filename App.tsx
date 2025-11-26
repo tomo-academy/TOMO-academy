@@ -383,9 +383,9 @@ const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: 
         <div className="container mx-auto px-6">
             <div className="text-center mb-16">
                 <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">Video Library</div>
-                <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-6">Latest Research Breakdowns</h2>
+                <h2 className="font-serif text-4xl md:text-5xl text-stone-900 mb-6">Latest Tutorials</h2>
                 <p className="max-w-2xl mx-auto text-lg text-stone-600 mb-8">
-                    Watch our latest episodes demystifying complex topics in AI, Quantum Computing, and Physics.
+                    Watch our step-by-step tutorials covering C Programming, Statistics, Probability, and Data Visualization fundamentals.
                 </p>
                 
                 {/* Topic Tags */}
