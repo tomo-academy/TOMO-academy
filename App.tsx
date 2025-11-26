@@ -8,34 +8,35 @@ import React, { useState, useEffect } from 'react';
 import { HeroScene, QuantumComputerScene } from './components/QuantumScene';
 import { SurfaceCodeDiagram, TransformerDecoderDiagram, PerformanceMetricDiagram } from './components/Diagrams';
 import { Menu, X, BookOpen, Youtube, PlayCircle, ExternalLink, MessageSquare, Mail } from 'lucide-react';
+import { fetchChannelStats, fetchChannelVideos, formatNumber, getTopicsDistribution, type VideoData, type ChannelStats } from './services/youtube';
 
 // Types
 type PageType = 'home' | 'videos' | 'community' | 'privacy' | 'terms';
 
-// --- ACTUAL CHANNEL DATA ---
-const VIDEOS = [
-  { id: 1, title: "Frequency Polygon in Probability and Statistics - Part 2", views: "48 views", duration: "3:13", thumbnail: "bg-stone-900", category: "Statistics", featured: true },
-  { id: 2, title: "Cumulative Frequency (Ogives) - Part 3", views: "67 views", duration: "7:34", thumbnail: "bg-[#1a1a1a]", category: "Statistics", featured: true },
-  { id: 3, title: "Why Learn C Programming - Part 3", views: "21 views", duration: "6:10", thumbnail: "bg-stone-800", category: "Programming", featured: false },
-  { id: 4, title: "Basics of C Programming - Part 2", views: "21 views", duration: "5:11", thumbnail: "bg-stone-700", category: "Programming", featured: false },
-  { id: 5, title: "Frequency Curve in Probability - Part 4", views: "47 views", duration: "5:23", thumbnail: "bg-[#C5A059]", category: "Statistics", featured: false },
-  { id: 6, title: "Less Than & More Than Ogives - Part 5", views: "17 views", duration: "4:25", thumbnail: "bg-stone-600", category: "Statistics", featured: false },
-  { id: 7, title: "Introduction to Probability and Statistics (Tamil)", views: "26 views", duration: "7:31", thumbnail: "bg-stone-900", category: "Statistics", featured: false },
-  { id: 8, title: "Intro to Computer Programming Language - Part 1", views: "12 views", duration: "1:16", thumbnail: "bg-[#1a1a1a]", category: "Programming", featured: false },
-  { id: 9, title: "Types of Charts - Part 3", views: "12 views", duration: "6:41", thumbnail: "bg-stone-800", category: "Visualization", featured: false },
-  { id: 10, title: "Data and Task Abstraction in Visualization - Part 4", views: "14 views", duration: "3:48", thumbnail: "bg-stone-700", category: "Visualization", featured: false },
-  { id: 11, title: "Dimensions and Measures - Part 5", views: "11 views", duration: "6:21", thumbnail: "bg-[#C5A059]", category: "Visualization", featured: false },
-  { id: 12, title: "Intro to Computer Programming Language - Part 2", views: "10 views", duration: "3:01", thumbnail: "bg-stone-600", category: "Programming", featured: false },
+// --- FALLBACK DATA (used if API fails) ---
+const FALLBACK_VIDEOS = [
+  { id: '1', title: "Frequency Polygon in Probability and Statistics - Part 2", views: "48 views", duration: "3:13", thumbnail: "bg-stone-900", category: "Statistics", featured: true, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '2', title: "Cumulative Frequency (Ogives) - Part 3", views: "67 views", duration: "7:34", thumbnail: "bg-[#1a1a1a]", category: "Statistics", featured: true, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '3', title: "Why Learn C Programming - Part 3", views: "21 views", duration: "6:10", thumbnail: "bg-stone-800", category: "Programming", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '4', title: "Basics of C Programming - Part 2", views: "21 views", duration: "5:11", thumbnail: "bg-stone-700", category: "Programming", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '5', title: "Frequency Curve in Probability - Part 4", views: "47 views", duration: "5:23", thumbnail: "bg-[#C5A059]", category: "Statistics", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '6', title: "Less Than & More Than Ogives - Part 5", views: "17 views", duration: "4:25", thumbnail: "bg-stone-600", category: "Statistics", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '7', title: "Introduction to Probability and Statistics (Tamil)", views: "26 views", duration: "7:31", thumbnail: "bg-stone-900", category: "Statistics", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '8', title: "Intro to Computer Programming Language - Part 1", views: "12 views", duration: "1:16", thumbnail: "bg-[#1a1a1a]", category: "Programming", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '9', title: "Types of Charts - Part 3", views: "12 views", duration: "6:41", thumbnail: "bg-stone-800", category: "Visualization", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '10', title: "Data and Task Abstraction in Visualization - Part 4", views: "14 views", duration: "3:48", thumbnail: "bg-stone-700", category: "Visualization", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '11', title: "Dimensions and Measures - Part 5", views: "11 views", duration: "6:21", thumbnail: "bg-[#C5A059]", category: "Visualization", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
+  { id: '12', title: "Intro to Computer Programming Language - Part 2", views: "10 views", duration: "3:01", thumbnail: "bg-stone-600", category: "Programming", featured: false, publishedAt: '', description: '', thumbnailUrl: '' },
 ];
 
-const CHANNEL_STATS = [
+const FALLBACK_CHANNEL_STATS = [
   { label: "Content Focus", value: "Beginner", icon: "📚" },
   { label: "Format", value: "Series", icon: "🎓" },
   { label: "Languages", value: "Tamil/EN", icon: "🌍" },
   { label: "Access", value: "Free", icon: "✨" },
 ];
 
-const TOPICS = [
+const FALLBACK_TOPICS = [
   { name: "Statistics & Probability", count: 8, color: "bg-stone-900" },
   { name: "C Programming", count: 5, color: "bg-[#C5A059]" },
   { name: "Data Visualization", count: 4, color: "bg-stone-700" },
@@ -54,7 +55,17 @@ const AuthorCard = ({ name, role, delay }: { name: string, role: string, delay: 
 
 // --- PAGES ---
 
-const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }) => (
+const HomePage = ({ 
+  scrollToSection, 
+  channelStats,
+  displayChannelStats,
+  topics 
+}: { 
+  scrollToSection: (id: string) => void;
+  channelStats: ChannelStats | null;
+  displayChannelStats: any[];
+  topics: any[];
+}) => (
   <>
     {/* Hero Section */}
     <header className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -117,7 +128,7 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
 
                 {/* Channel Statistics */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-                    {CHANNEL_STATS.map((stat, idx) => (
+                    {displayChannelStats.map((stat, idx) => (
                         <div key={idx} className="text-center p-6 bg-stone-50 rounded-xl border border-stone-200">
                             <div className="text-4xl mb-2">{stat.icon}</div>
                             <div className="text-3xl font-serif font-bold text-stone-900 mb-1">{stat.value}</div>
@@ -367,7 +378,7 @@ const HomePage = ({ scrollToSection }: { scrollToSection: (id: string) => void }
   </>
 );
 
-const VideosPage = () => (
+const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: any[]; loading: boolean }) => (
     <div className="min-h-screen pt-32 pb-20 bg-[#F9F8F4]">
         <div className="container mx-auto px-6">
             <div className="text-center mb-16">
@@ -379,7 +390,7 @@ const VideosPage = () => (
                 
                 {/* Topic Tags */}
                 <div className="flex flex-wrap justify-center gap-3 mb-12">
-                    {TOPICS.map((topic, idx) => (
+                    {topics.map((topic, idx) => (
                         <div key={idx} className={`px-4 py-2 ${topic.color} text-white rounded-full text-sm font-medium flex items-center gap-2`}>
                             <span>{topic.name}</span>
                             <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs">{topic.count}</span>
@@ -388,27 +399,46 @@ const VideosPage = () => (
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {VIDEOS.map((video) => (
-                    <a key={video.id} href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="group block bg-white rounded-xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-lg transition-all duration-300">
-                        <div className={`aspect-video w-full ${video.thumbnail} relative flex items-center justify-center`}>
-                            <PlayCircle className="text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" size={64} />
-                            <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded font-medium">
-                                {video.duration}
+            {loading ? (
+                <div className="text-center py-20">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-stone-900"></div>
+                    <p className="mt-4 text-stone-600">Loading videos...</p>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {videos.map((video) => (
+                        <a key={video.id} href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener noreferrer" className="group block bg-white rounded-xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-lg transition-all duration-300">
+                            {video.thumbnailUrl ? (
+                                <div className="aspect-video w-full relative overflow-hidden bg-stone-100">
+                                    <img src={video.thumbnailUrl} alt={video.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                                        <PlayCircle className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={64} />
+                                    </div>
+                                    <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded font-medium">
+                                        {video.duration}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className={`aspect-video w-full ${video.thumbnail} relative flex items-center justify-center`}>
+                                    <PlayCircle className="text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" size={64} />
+                                    <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded font-medium">
+                                        {video.duration}
+                                    </div>
+                                </div>
+                            )}
+                            <div className="p-6">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="text-[10px] font-bold tracking-widest uppercase text-nobel-gold bg-stone-900 px-2 py-1 rounded-sm">
+                                        {video.category}
+                                    </span>
+                                    <span className="text-xs text-stone-400">{video.views}</span>
+                                </div>
+                                <h3 className="font-serif text-xl text-stone-900 mb-2 group-hover:text-nobel-gold transition-colors line-clamp-2">{video.title}</h3>
                             </div>
-                        </div>
-                        <div className="p-6">
-                            <div className="flex items-center gap-2 mb-3">
-                                <span className="text-[10px] font-bold tracking-widest uppercase text-nobel-gold bg-stone-900 px-2 py-1 rounded-sm">
-                                    {video.category}
-                                </span>
-                                <span className="text-xs text-stone-400">{video.views}</span>
-                            </div>
-                            <h3 className="font-serif text-xl text-stone-900 mb-2 group-hover:text-nobel-gold transition-colors">{video.title}</h3>
-                        </div>
-                    </a>
-                ))}
-            </div>
+                        </a>
+                    ))}
+                </div>
+            )}
 
             <div className="mt-20 text-center">
                  <a href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF0000] text-white rounded-full font-medium shadow-md hover:bg-red-700 transition-colors">
@@ -542,12 +572,54 @@ export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState<PageType>('home');
+  const [videos, setVideos] = useState<VideoData[]>(FALLBACK_VIDEOS);
+  const [channelStats, setChannelStats] = useState<ChannelStats | null>(null);
+  const [topics, setTopics] = useState(FALLBACK_TOPICS);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch YouTube data on mount
+  useEffect(() => {
+    async function loadYouTubeData() {
+      setLoading(true);
+      try {
+        // Fetch channel stats and videos in parallel
+        const [stats, vids] = await Promise.all([
+          fetchChannelStats(),
+          fetchChannelVideos(12)
+        ]);
+
+        if (stats) {
+          setChannelStats(stats);
+        }
+
+        if (vids && vids.length > 0) {
+          setVideos(vids);
+          setTopics(getTopicsDistribution(vids));
+        }
+      } catch (error) {
+        console.error('Error loading YouTube data:', error);
+        // Fallback data is already set
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadYouTubeData();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Create dynamic channel stats for display
+  const displayChannelStats = channelStats ? [
+    { label: "Subscribers", value: formatNumber(channelStats.subscriberCount) + '+', icon: "👥" },
+    { label: "Total Views", value: formatNumber(channelStats.viewCount), icon: "👁️" },
+    { label: "Videos", value: channelStats.videoCount, icon: "🎬" },
+    { label: "Languages", value: "Tamil/EN", icon: "🌍" },
+  ] : FALLBACK_CHANNEL_STATS;
 
   const navigateTo = (page: PageType) => {
       setCurrentPage(page);
@@ -630,8 +702,8 @@ export default function App() {
 
       {/* Page Content */}
       <div className="flex-grow">
-          {currentPage === 'home' && <HomePage scrollToSection={scrollToSection} />}
-          {currentPage === 'videos' && <VideosPage />}
+          {currentPage === 'home' && <HomePage scrollToSection={scrollToSection} channelStats={channelStats} displayChannelStats={displayChannelStats} topics={topics} />}
+          {currentPage === 'videos' && <VideosPage videos={videos} topics={topics} loading={loading} />}
           {currentPage === 'community' && <CommunityPage />}
           {(currentPage === 'privacy' || currentPage === 'terms') && <LegalPage docType={currentPage} />}
       </div>

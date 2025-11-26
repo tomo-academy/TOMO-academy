@@ -37,15 +37,28 @@ View the app in AI Studio: https://ai.studio/apps/drive/1WftGJcu4biWc260rjO6uQ40
    npm install
    ```
 
-3. **Configure API Key** (Optional - for AI-powered features)
-   - The Gemini API key is used for AI Studio deployment and potential AI-powered interactive features
+3. **Configure API Keys**
+
+   **YouTube API (Recommended for live data):**
    - Copy `.env.local.example` to `.env.local`
+   - Get your YouTube API key from [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+     - Enable YouTube Data API v3
+     - Create credentials (API key)
+   - Find your Channel ID from your YouTube channel URL or About page
+   - Add to `.env.local`:
+     ```
+     VITE_YOUTUBE_API_KEY=your_youtube_api_key
+     VITE_YOUTUBE_CHANNEL_ID=your_channel_id
+     ```
+   
+   **Gemini API (Optional - for AI Studio deployment):**
    - Get your Gemini API key from [AI Studio](https://aistudio.google.com/app/apikey)
-   - Add your key to `.env.local`:
+   - Add to `.env.local`:
      ```
-     GEMINI_API_KEY=your_api_key_here
+     GEMINI_API_KEY=your_gemini_api_key
      ```
-   - **Note:** The website works fully without the API key. It's only needed for AI Studio hosting integration.
+   
+   **Note:** The website works with fallback data if YouTube API is not configured, but real-time data is much better!
 
 4. **Start the development server**
    ```bash
@@ -92,20 +105,21 @@ TOMO-academy/
 ## 🎨 Features
 
 ### Current Features
-- ✅ Interactive 3D quantum visualizations
-- ✅ Responsive design for all devices
-- ✅ Video library with 85+ educational videos
-- ✅ Research paper breakdowns
-- ✅ Channel statistics dashboard
-- ✅ Topic-based content categorization
-- ✅ Community integration
-- ✅ Educational resources section
+- ✅ **Live YouTube Integration** - Real-time video data and statistics via YouTube Data API v3
+- ✅ **Dynamic Channel Stats** - Auto-updating subscriber count, view count, and video count
+- ✅ **Smart Video Categorization** - Automatic categorization into Programming, Statistics, and Visualization
+- ✅ **Responsive Design** - Works perfectly on desktop, tablet, and mobile
+- ✅ **Fallback Data** - Works offline with static data if API is unavailable
+- ✅ **Interactive 3D Visualizations** - Engaging visual elements
+- ✅ **Topic-based Navigation** - Filter content by category
+- ✅ **Bilingual Support** - Content in Tamil and English
+- ✅ **Series-based Learning** - Progressive part-by-part tutorials
 
-### Featured Content
-- Deep dive into Google's AlphaQubit research
-- Surface code quantum error correction
-- Transformer architecture visualizations
-- Neural decoding algorithms
+### Featured Content Series
+- **Statistics & Probability** - Frequency distributions, histograms, polygons, ogives
+- **C Programming** - Fundamentals, systems programming basics
+- **Data Visualization** - Chart types, dimensions, measures
+- **Practical Examples** - Real-world datasets and applications
 
 ## 🤝 Contributing
 
