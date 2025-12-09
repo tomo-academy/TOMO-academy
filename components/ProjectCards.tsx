@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Code, Mail, Users, MessageSquare } from 'lucide-react';
+import { ExternalLink, Code, Mail, Users, MessageSquare, Briefcase } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -71,6 +71,22 @@ const projects: Project[] = [
       "Secure Access: Role-based permissions with Firebase authentication and audit trails",
       "Automation: Workflows for onboarding, notifications, and reporting"
     ]
+  },
+  {
+    id: 5,
+    title: "TOMO BUSINESS - Digital Card Builder",
+    description: "TOMO BUSINESS is a modern networking tool for creating premium digital profiles that replace physical cards, enabling instant NFC sharing on any smartphone without apps, customizable domains like tomo.business/yourname, and real-time connection analytics.",
+    image: "/tomo-business-vercel-app-1024x768desktop-4a9161.png",
+    link: "https://tomo-business.vercel.app/",
+    category: "Business Tool",
+    features: [
+      "NFC Instant Share: Tap-to-share profile on smartphones; no receiver app needed",
+      "Custom Domain: Professional links like tomo.business/yourname, SEO-friendly",
+      "Mobile Optimized: Instant loading and premium appearance on all devices",
+      "Real-time Analytics: Track connections and engagement",
+      "Replaces Physical Cards: Modern digital networking solution",
+      "No App Required: Works instantly on any smartphone"
+    ]
   }
 ];
 
@@ -84,6 +100,8 @@ const getCategoryIcon = (category: string) => {
       return <MessageSquare className="w-5 h-5" />;
     case "Staff Portal":
       return <Users className="w-5 h-5" />;
+    case "Business Tool":
+      return <Briefcase className="w-5 h-5" />;
     default:
       return <Code className="w-5 h-5" />;
   }
