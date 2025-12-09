@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Code, Mail, Users, MessageSquare, Briefcase } from 'lucide-react';
+import { ExternalLink, Code, Mail, Users, MessageSquare, Briefcase, FileText } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -87,6 +87,23 @@ const projects: Project[] = [
       "Replaces Physical Cards: Modern digital networking solution",
       "No App Required: Works instantly on any smartphone"
     ]
+  },
+  {
+    id: 6,
+    title: "TOMO MEOW - Professional Document Formatter",
+    description: "TOMO MEOW by AJ STUDIOZ is a professional document formatter tool that converts plain text or Markdown into styled documents with real-time preview and exports to PDF or DOCX, ideal for notes, code, and reports like Java I/O Streams tutorials.",
+    image: ["/docustyle-studio-vercel-app-1024x768desktop-13d1ab.png", "/tomo-meow-studio-vercel-app-1024x768desktop-478946.png"],
+    link: "https://doc.tomoacademy.site/",
+    category: "Document Tool",
+    features: [
+      "Syntax Highlighting: Colored code display for programming languages",
+      "Beautiful Tables: Formatted tabular data with professional styling",
+      "Professional Styling: Polished layouts for documents and reports",
+      "Auto-Detect Formatting: Intelligent plain text parsing",
+      "Export PDF/DOCX: Download formatted content in multiple formats",
+      "Real-time Preview: Instant formatted view as you type",
+      "Mobile Responsive: Works seamlessly on all devices"
+    ]
   }
 ];
 
@@ -102,6 +119,8 @@ const getCategoryIcon = (category: string) => {
       return <Users className="w-5 h-5" />;
     case "Business Tool":
       return <Briefcase className="w-5 h-5" />;
+    case "Document Tool":
+      return <FileText className="w-5 h-5" />;
     default:
       return <Code className="w-5 h-5" />;
   }
