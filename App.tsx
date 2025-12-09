@@ -5,10 +5,11 @@
 import React, { useState, useEffect } from 'react';
 import { HeroScene, QuantumComputerScene } from './components/QuantumScene';
 import { SurfaceCodeDiagram, TransformerDecoderDiagram, PerformanceMetricDiagram } from './components/Diagrams';
+import { ProjectCards } from './components/ProjectCards';
 import { Menu, X, BookOpen, Youtube, PlayCircle, ExternalLink, MessageSquare, Mail } from 'lucide-react';
 import { fetchChannelStats, fetchChannelVideos, formatNumber, getTopicsDistribution, type VideoData, type ChannelStats } from './services/youtube';
 // Types
-type PageType = 'home' | 'videos' | 'community' | 'privacy' | 'terms';
+type PageType = 'home' | 'videos' | 'services' | 'community' | 'privacy' | 'terms';
 // --- FALLBACK DATA (used if API fails) ---
 const FALLBACK_VIDEOS = [
   { id: '1', title: "Frequency Polygon in Probability and Statistics - Part 2", views: "48 views", duration: "3:13", thumbnail: "bg-stone-900", category: "Statistics", featured: true, publishedAt: '', description: '', thumbnailUrl: '' },
@@ -357,6 +358,21 @@ const HomePage = ({
     </main>
   </>
 );
+const ServicesPage = () => (
+    <div className="min-h-screen pt-32 pb-20 bg-[#F9F8F4]">
+        <div className="container mx-auto px-6 max-w-7xl">
+            <div className="text-center mb-16">
+                <div className="inline-block mb-3 text-xs font-bold tracking-widest text-stone-500 uppercase">What We Build</div>
+                <h1 className="font-serif text-5xl md:text-6xl text-stone-900 mb-6">Our Services</h1>
+                <p className="max-w-3xl mx-auto text-lg text-stone-600 leading-relaxed">
+                    Innovative AI-powered tools and platforms developed by <span className="font-bold text-stone-900">AJ STUDIOZ</span>. 
+                    From code editors to email assistants and team management systems, we build solutions that empower creators and developers.
+                </p>
+            </div>
+        </div>
+        <ProjectCards />
+    </div>
+);
 const VideosPage = ({ videos, topics, loading }: { videos: VideoData[]; topics: any[]; loading: boolean }) => (
     <div className="min-h-screen pt-32 pb-20 bg-[#F9F8F4]">
         <div className="container mx-auto px-6">
@@ -632,6 +648,7 @@ export default function App() {
           <div className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-stone-600">
             <button onClick={() => navigateTo('home')} className={`hover:text-nobel-gold transition-colors uppercase ${currentPage === 'home' ? 'text-stone-900 font-bold' : ''}`}>Home</button>
             <button onClick={() => navigateTo('videos')} className={`hover:text-nobel-gold transition-colors uppercase ${currentPage === 'videos' ? 'text-stone-900 font-bold' : ''}`}>Videos</button>
+            <button onClick={() => navigateTo('services')} className={`hover:text-nobel-gold transition-colors uppercase ${currentPage === 'services' ? 'text-stone-900 font-bold' : ''}`}>Services</button>
             <button onClick={() => navigateTo('community')} className={`hover:text-nobel-gold transition-colors uppercase ${currentPage === 'community' ? 'text-stone-900 font-bold' : ''}`}>Community</button>
            
             <a
@@ -654,6 +671,7 @@ export default function App() {
         <div className="fixed inset-0 z-40 bg-[#F9F8F4] flex flex-col items-center justify-center gap-8 text-xl font-serif animate-fade-in">
             <button onClick={() => navigateTo('home')} className="hover:text-nobel-gold transition-colors uppercase">Home</button>
             <button onClick={() => navigateTo('videos')} className="hover:text-nobel-gold transition-colors uppercase">Videos</button>
+            <button onClick={() => navigateTo('services')} className="hover:text-nobel-gold transition-colors uppercase">Services</button>
             <button onClick={() => navigateTo('community')} className="hover:text-nobel-gold transition-colors uppercase">Community</button>
             <a href="https://www.youtube.com/@TOMOACADEMY" target="_blank" rel="noopener noreferrer" className="hover:text-nobel-gold transition-colors uppercase">YouTube Channel</a>
         </div>
@@ -662,6 +680,7 @@ export default function App() {
       <div className="flex-grow">
           {currentPage === 'home' && <HomePage scrollToSection={scrollToSection} channelStats={channelStats} displayChannelStats={displayChannelStats} topics={topics} />}
           {currentPage === 'videos' && <VideosPage videos={videos} topics={topics} loading={loading} />}
+          {currentPage === 'services' && <ServicesPage />}
           {currentPage === 'community' && <CommunityPage />}
           {(currentPage === 'privacy' || currentPage === 'terms') && <LegalPage docType={currentPage} />}
       </div>
@@ -691,6 +710,7 @@ export default function App() {
                         <ul className="space-y-3">
                             <li><button onClick={() => navigateTo('home')} className="hover:text-nobel-gold transition-colors text-left">Home</button></li>
                             <li><button onClick={() => navigateTo('videos')} className="hover:text-nobel-gold transition-colors text-left">Videos</button></li>
+                            <li><button onClick={() => navigateTo('services')} className="hover:text-nobel-gold transition-colors text-left">Services</button></li>
                             <li><button onClick={() => navigateTo('community')} className="hover:text-nobel-gold transition-colors text-left">Community</button></li>
                         </ul>
                     </div>
