@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ExternalLink, Code, Mail, Users, MessageSquare } from 'lucide-react';
 
 interface Project {
   id: number;
   title: string;
   description: string;
-  image: string;
+  image: string | string[];
   link: string;
   features: string[];
   category: string;
@@ -30,7 +30,7 @@ const projects: Project[] = [
   },
   {
     id: 2,
-    title: "TOMO Bot - AI Assistant",
+    title: "TOMO Bot - AI Email Assistant",
     description: "TOMO bot is an AI assistant developed by AJ STUDIOZ that helps users compose, send, and manage professional emails efficiently, with commands like 'Send a thank you email to [email]' or 'Help me write a professional email'.",
     image: "/workflow-one-gamma-vercel-app-1024x768desktop-f1ea93.png",
     link: "https://workflow-one-gamma.vercel.app/",
@@ -45,7 +45,7 @@ const projects: Project[] = [
     id: 3,
     title: "TOMO - AI-Powered Chat Assistant",
     description: "TOMO is an advanced AI-powered chat assistant featuring intelligent tools, voice chat, image generation, and real-time search for future-forward AI conversations.",
-    image: "/tomo-chat-web.jpeg",
+    image: ["/tomo-chat-web.jpeg", "/hello-its-vercel-app-1024x768desktop-72ac20.png"],
     link: "https://chat.tomoacademy.site",
     category: "AI Chat",
     features: [
@@ -89,6 +89,46 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
+const ProjectImage = ({ images, title }: { images: string | string[], title: string }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const imageArray = Array.isArray(images) ? images : [images];
+
+  useEffect(() => {
+    if (imageArray.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % imageArray.length);
+      }, 3000); // Change image every 3 seconds
+      return () => clearInterval(interval);
+    }
+  }, [imageArray.length]);
+
+  return (
+    <>
+      <img
+        src={imageArray[currentImageIndex]}
+        alt={title}
+        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23e7e5e4" width="400" height="300"/%3E%3Ctext fill="%2378716c" font-family="sans-serif" font-size="24" text-anchor="middle" x="200" y="150"%3ETOMO%3C/text%3E%3C/svg%3E';
+        }}
+      />
+      {imageArray.length > 1 && (
+        <div className="absolute bottom-3 right-3 flex gap-1.5">
+          {imageArray.map((_, idx) => (
+            <div
+              key={idx}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                idx === currentImageIndex ? 'bg-nobel-gold w-6' : 'bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
 export const ProjectCards = () => {
   return (
     <div className="container mx-auto px-6 max-w-7xl">
@@ -102,15 +142,7 @@ export const ProjectCards = () => {
             >
               {/* Image Container */}
               <div className="relative h-56 overflow-hidden bg-gradient-to-br from-stone-100 to-stone-200">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23e7e5e4" width="400" height="300"/%3E%3Ctext fill="%2378716c" font-family="sans-serif" font-size="24" text-anchor="middle" x="200" y="150"%3ETOMO%3C/text%3E%3C/svg%3E';
-                  }}
-                />
+                <ProjectImage images={project.image} title={project.title} />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
                 
                 {/* Category Badge */}
