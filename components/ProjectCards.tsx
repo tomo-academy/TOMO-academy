@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Code, Mail, Users } from 'lucide-react';
+import { ExternalLink, Code, Mail, Users, MessageSquare } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -43,6 +43,21 @@ const projects: Project[] = [
   },
   {
     id: 3,
+    title: "TOMO - AI-Powered Chat Assistant",
+    description: "TOMO is an advanced AI-powered chat assistant featuring intelligent tools, voice chat, image generation, and real-time search for future-forward AI conversations.",
+    image: "/tomo-chat-web.jpeg",
+    link: "https://chat.tomoacademy.site",
+    category: "AI Chat",
+    features: [
+      "Intelligent Tools: Advanced AI capabilities for smart interactions",
+      "Voice Chat: Supports voice-based conversations",
+      "Image Generation: Creates images within chats",
+      "Real-Time Search: Integrates live web search",
+      "Access: User login via email/password or Google; sign-up available"
+    ]
+  },
+  {
+    id: 4,
     title: "TOMO Academy - Internal Management Tool",
     description: "TOMO Academy is a premium digital platform and comprehensive internal tool designed to streamline operations, manage a team of 14+ creators, and optimize YouTube channel success, built specifically for content creation workflows.",
     image: "/tomo-forge-hub-vercel-app-1024x768desktop-dbc84d.png",
@@ -65,6 +80,8 @@ const getCategoryIcon = (category: string) => {
       return <Code className="w-5 h-5" />;
     case "AI Assistant":
       return <Mail className="w-5 h-5" />;
+    case "AI Chat":
+      return <MessageSquare className="w-5 h-5" />;
     case "Staff Portal":
       return <Users className="w-5 h-5" />;
     default:
