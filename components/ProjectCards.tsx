@@ -91,12 +91,17 @@ const getCategoryIcon = (category: string) => {
 
 const ProjectImage = ({ images, title }: { images: string | string[], title: string }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const imageArray = Array.isArray(images) ? images : [images];
 
   useEffect(() => {
     if (imageArray.length > 1) {
       const interval = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % imageArray.length);
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setCurrentImageIndex((prev) => (prev + 1) % imageArray.length);
+          setIsTransitioning(false);
+        }, 500);
       }, 3000); // Change image every 3 seconds
       return () => clearInterval(interval);
     }
@@ -104,17 +109,33 @@ const ProjectImage = ({ images, title }: { images: string | string[], title: str
 
   return (
     <>
-      <img
-        src={imageArray[currentImageIndex]}
-        alt={title}
-        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-        onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23e7e5e4" width="400" height="300"/%3E%3Ctext fill="%2378716c" font-family="sans-serif" font-size="24" text-anchor="middle" x="200" y="150"%3ETOMO%3C/text%3E%3C/svg%3E';
-        }}
-      />
+      <div className="relative w-full h-full overflow-hidden">
+        {imageArray.map((img, idx) => (
+          <img
+            key={idx}
+            src={img}
+            alt={`${title} - ${idx + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
+              idx === currentImageIndex
+                ? isTransitioning 
+                  ? 'translate-x-[-100%] opacity-0'
+                  : 'translate-x-0 opacity-100'
+                : idx === (currentImageIndex + 1) % imageArray.length
+                ? isTransitioning
+                  ? 'translate-x-0 opacity-100'
+                  : 'translate-x-[100%] opacity-0'
+                : 'translate-x-[100%] opacity-0'
+            }`}
+            style={{ transition: 'transform 0.7s ease-in-out, opacity 0.7s ease-in-out' }}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23e7e5e4" width="400" height="300"/%3E%3Ctext fill="%2378716c" font-family="sans-serif" font-size="24" text-anchor="middle" x="200" y="150"%3ETOMO%3C/text%3E%3C/svg%3E';
+            }}
+          />
+        ))}
+      </div>
       {imageArray.length > 1 && (
-        <div className="absolute bottom-3 right-3 flex gap-1.5">
+        <div className="absolute bottom-3 right-3 flex gap-1.5 z-10">
           {imageArray.map((_, idx) => (
             <div
               key={idx}
